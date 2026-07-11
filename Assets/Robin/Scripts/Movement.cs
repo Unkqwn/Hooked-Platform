@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float baseSpeed = 5f;
-    [SerializeField] private float sprintMultiplier = 2f;
 
     private Vector2 moveInput;
 
