@@ -29,9 +29,16 @@ public class PlayerJump : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        print("Jump input received. IsGrounded: " + IsGrounded());
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, transform.localScale.y + 0.1f, LayerMask.GetMask("Ground"));
     }
 }
