@@ -157,6 +157,7 @@ MonoBehaviour:
   baseSpeed: 25
   acceleration: 20
   deceleration: 15
+  cameraTransform: {fileID: 0}
 --- !u!54 &94347421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -276,7 +277,8 @@ Transform:
   m_LocalPosition: {x: 0.35356, y: 1.27, z: 0.35356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 870329819}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &94347426
@@ -354,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
   jumpForce: 20
+  gravityMultiplier: 50
 --- !u!1 &870329816
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,13 +443,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870329816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.1, z: -45.7}
+  m_LocalRotation: {x: -0, y: 0.031061854, z: -0, w: 0.9995175}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 94347425}
+  m_LocalEulerAnglesHint: {x: 0, y: 3.56, z: 0}
 --- !u!114 &870329820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +506,7 @@ GameObject:
   - component: {fileID: 2005070426}
   - component: {fileID: 2005070425}
   - component: {fileID: 2005070424}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -738,4 +741,3 @@ SceneRoots:
   - {fileID: 2019738230}
   - {fileID: 2005070427}
   - {fileID: 94347425}
-  - {fileID: 870329819}
