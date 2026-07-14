@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float baseSpeed = 5f;
     [SerializeField] private float acceleration = 20f;
@@ -19,6 +19,10 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody component not found on the player object.");
+        }
     }
 
     void FixedUpdate()

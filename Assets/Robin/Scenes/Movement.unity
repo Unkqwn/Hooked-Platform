@@ -132,8 +132,9 @@ GameObject:
   - component: {fileID: 94347423}
   - component: {fileID: 94347422}
   - component: {fileID: 94347421}
-  - component: {fileID: 94347420}
   - component: {fileID: 94347426}
+  - component: {fileID: 94347420}
+  - component: {fileID: 94347427}
   m_Layer: 0
   m_Name: Player Placeholder
   m_TagString: Untagged
@@ -153,9 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94df83526cef64eb58e18e57726b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
-  baseSpeed: 20
+  baseSpeed: 25
   acceleration: 20
-  deceleration: 12
+  deceleration: 15
 --- !u!54 &94347421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94347419}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -275,8 +276,7 @@ Transform:
   m_LocalPosition: {x: 0.35356, y: 1.27, z: 0.35356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 870329819}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &94347426
@@ -320,11 +320,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 46285654-d719-44b3-803a-fe8a0f92daa7
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 94347427}
+        m_TargetAssemblyTypeName: PlayerJump, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ad1f6971-bbdc-4d08-ab91-ee273233777d
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &94347427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94347419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e220a51771226404393c970d1c30d0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
+  jumpForce: 20
 --- !u!1 &870329816
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,11 +441,11 @@ Transform:
   m_GameObject: {fileID: 870329816}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35356, y: -0.26999998, z: -10.35356}
+  m_LocalPosition: {x: 0, y: 8.1, z: -45.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 94347425}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &870329820
 MonoBehaviour:
@@ -709,3 +738,4 @@ SceneRoots:
   - {fileID: 2019738230}
   - {fileID: 2005070427}
   - {fileID: 94347425}
+  - {fileID: 870329819}
