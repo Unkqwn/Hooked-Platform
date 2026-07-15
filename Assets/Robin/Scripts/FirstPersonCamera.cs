@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class FirstPersonCamera : MonoBehaviour
 {
-    [SerializeField] private float ySensitivity;
-    [SerializeField] private float xSensitivity;
+    [SerializeField, Range(0f, 100f)] private float ySensitivity;
+    [SerializeField, Range(0f, 100f)] private float xSensitivity;
     [SerializeField] private InputActionReference lookAction; // bind to your Look action
 
     private Transform cameraTransform;
