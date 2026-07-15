@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float jumpForce;
 
-    [SerializeField] private float gravityMultiplier = 50f;
+    [SerializeField] private float gravityMultiplier;
 
     private Rigidbody rb;
 
