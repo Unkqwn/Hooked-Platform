@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 463170865}
   - component: {fileID: 463170864}
   - component: {fileID: 463170863}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,11 +523,93 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: c6cbe35e-cb7d-4f81-ba65-f675d45c4176
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'Player/Hook[/Mouse/rightButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7192765691777752197}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHook
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Grappling, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1423613562054502212, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7192765691777752197}
   m_SourcePrefab: {fileID: 100100000, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+--- !u!1 &7192765691777752196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1423613562054502212, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+  m_PrefabInstance: {fileID: 7192765691777752195}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7192765691777752197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7192765691777752196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131087b7c225f634f8e0e5af6e7f3209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hooking
+  playerMove: {fileID: 7192765691777752200}
+  cameraTransform: {fileID: 0}
+  hookOrigin: {fileID: 0}
+  hookRange: 10
+  hookableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  hookSpeed: 10
+  hookDelay: 0.5
+  cooldownTime: 1
+  cooldownTimer: 0
+--- !u!114 &7192765691777752200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 257348847686954780, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
+  m_PrefabInstance: {fileID: 7192765691777752195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7192765691777752196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b94df83526cef64eb58e18e57726b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
