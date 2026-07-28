@@ -9,19 +9,22 @@ public class Grappling : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
 
     [Header("Hook Settings")]
-    [SerializeField] private Transform hookOrigin;
-    [SerializeField] private float hookRange = 100f;
+    [SerializeField] private float hookRange;
 
     [SerializeField] private LayerMask hookableLayer;
 
-    [SerializeField] private float hookSpeed = 10f;
-    [SerializeField] private float hookDelay = 0.5f;
+    [SerializeField] private float hookSpeed;
+    [SerializeField] private float hookDelay;
+
+    [Header("Visuals")]
+    [SerializeField] private Transform hookOrigin;
+    [SerializeField] private LineRenderer ropeRenderer;
 
     private Vector3 grapplePoint;
 
     [Header("Cooldown")]
-    [SerializeField] private float cooldownTime = 1f;
-    [SerializeField] private float cooldownTimer = 0f;
+    [SerializeField] private float cooldownTime;
+    [SerializeField] private float cooldownTimer;
 
     private bool isHooked = false;
 
@@ -37,8 +40,12 @@ public class Grappling : MonoBehaviour
         }
         if (!hookOrigin)
         {
-            Debug.LogError("Hook origin is not assigned. Assigning the player's transform as the hook origin.");
             hookOrigin = transform;
+        }
+        if (!ropeRenderer)
+        {
+            ropeRenderer = GetComponent<LineRenderer>();
+            ropeRenderer.enabled = false;
         }
     }
 
@@ -50,13 +57,21 @@ public class Grappling : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (isHooked)
+        {
+            ropeRenderer.SetPosition(0, hookOrigin.position);
+            ropeRenderer.SetPosition(1, grapplePoint);
+        }
+    }
+
     public void OnHook(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Debug.Log("Hook action performed.");
-            // Implement hook logic here
-
+            ropeRenderer.SetPosition(0, hookOrigin.position);
             StartGrapple();
         }
     }
@@ -84,6 +99,9 @@ public class Grappling : MonoBehaviour
             grapplePoint = hookOrigin.position + cameraTransform.forward * hookRange;
             Invoke(nameof(StopGrapple), hookDelay);
         }
+        
+        ropeRenderer.enabled = true;
+        ropeRenderer.SetPosition(1, grapplePoint);
     }
 
     private void ExecuteGrapple()
@@ -97,7 +115,7 @@ public class Grappling : MonoBehaviour
     private void StopGrapple()
     {
         isHooked = false;
-
+        ropeRenderer.enabled = false;
         cooldownTimer = cooldownTime;
     }
 }
