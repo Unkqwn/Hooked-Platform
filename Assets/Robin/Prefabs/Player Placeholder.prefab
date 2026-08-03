@@ -290,13 +290,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hooking
   playerMove: {fileID: 257348847686954780}
   cameraTransform: {fileID: 0}
-  hookOrigin: {fileID: 0}
-  hookRange: 10
   hookableLayer:
     serializedVersion: 2
     m_Bits: 128
   hookSpeed: 10
   hookDelay: 0.5
+  cableMaxLength: 1000
+  maxDistanceModifier: 0.8
+  minDistanceModifier: 0.25
+  hookOrigin: {fileID: 679572982783605278}
+  ropeRenderer: {fileID: 3925630793716650436}
   cooldownTime: 1
   cooldownTimer: 0
 --- !u!1 &1572668713899022456
@@ -328,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 1572668713899022456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.19, z: 0.69}
+  m_LocalPosition: {x: 0.55, y: 0.208, z: 0.69}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -421,7 +424,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572668713899022456}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -439,7 +442,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 03b14a3699f09b4418c9e7a8bf8c6784, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -464,10 +467,10 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -551,7 +554,7 @@ Transform:
   m_GameObject: {fileID: 2129786369776567777}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.533, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

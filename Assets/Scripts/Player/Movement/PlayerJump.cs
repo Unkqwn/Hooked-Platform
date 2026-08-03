@@ -33,8 +33,6 @@ public class PlayerJump : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
-        print("Jump input received. IsGrounded: " + IsGrounded());
     }
 
     private bool IsGrounded()

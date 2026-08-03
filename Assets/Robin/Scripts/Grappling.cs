@@ -4,29 +4,36 @@ using UnityEngine.InputSystem;
 
 public class Grappling : MonoBehaviour
 {
+    #region Variables
     [Header("References")]
     [SerializeField] private PlayerMove playerMove;
     [SerializeField] private Transform cameraTransform;
 
     [Header("Hook Settings")]
-    [SerializeField] private float hookRange;
-
     [SerializeField] private LayerMask hookableLayer;
 
     [SerializeField] private float hookSpeed;
     [SerializeField] private float hookDelay;
 
+    [Header("Cable Settings")]
+    [SerializeField] private float cableMaxLength;
+    [SerializeField] private float maxDistanceModifier = 0.8f;
+    [SerializeField] private float minDistanceModifier = 0.25f;
+    private SpringJoint springJoint;
+
+
     [Header("Visuals")]
     [SerializeField] private Transform hookOrigin;
     [SerializeField] private LineRenderer ropeRenderer;
 
-    private Vector3 grapplePoint;
+    private Vector3 hookPoint;
 
     [Header("Cooldown")]
     [SerializeField] private float cooldownTime;
     [SerializeField] private float cooldownTimer;
 
     private bool isHooked = false;
+    #endregion
 
     private void Awake()
     {
@@ -62,7 +69,7 @@ public class Grappling : MonoBehaviour
         if (isHooked)
         {
             ropeRenderer.SetPosition(0, hookOrigin.position);
-            ropeRenderer.SetPosition(1, grapplePoint);
+            ropeRenderer.SetPosition(1, hookPoint);
         }
     }
 
@@ -70,52 +77,72 @@ public class Grappling : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Hook action performed.");
+            if (isHooked)
+            {
+                StopHook();
+                return;
+            }
             ropeRenderer.SetPosition(0, hookOrigin.position);
-            StartGrapple();
+            ShootHook();
         }
     }
 
-    private void StartGrapple()
+    private void ShootHook()
     {
         if (cooldownTimer > 0f)
         {
-            Debug.Log("Grapple is on cooldown.");
             return;
         }
 
         isHooked = true;
 
         RaycastHit hit;
-        if (Physics.Raycast(hookOrigin.position, cameraTransform.forward, out hit, hookRange, hookableLayer))
+        if (Physics.Raycast(hookOrigin.position, cameraTransform.forward, out hit, cableMaxLength, hookableLayer))
         {
-            grapplePoint = hit.point;
-            Debug.Log($"Grapple point set to: {grapplePoint}");
-            Invoke(nameof(ExecuteGrapple), hookDelay);
+            hookPoint = hit.point;
+            Invoke(nameof(StartSwing), hookDelay);
         }
         else
         {
-            Debug.Log("No valid grapple point found.");
-            grapplePoint = hookOrigin.position + cameraTransform.forward * hookRange;
-            Invoke(nameof(StopGrapple), hookDelay);
+            hookPoint = hookOrigin.position + cameraTransform.forward * cableMaxLength;
+            Invoke(nameof(StopHook), hookDelay);
         }
         
+        playerMove.enabled = false;
+
         ropeRenderer.enabled = true;
-        ropeRenderer.SetPosition(1, grapplePoint);
+        ropeRenderer.SetPosition(1, hookPoint);
     }
 
-    private void ExecuteGrapple()
-    {
-        if (isHooked)
-        {
-            Vector3 direction = (grapplePoint - transform.position).normalized;
-        }
-    }
-
-    private void StopGrapple()
+    private void StopHook()
     {
         isHooked = false;
         ropeRenderer.enabled = false;
         cooldownTimer = cooldownTime;
+        playerMove.enabled = true;
+        StopSwing();
+    }
+
+    private void StartSwing()
+    {
+        springJoint = playerMove.gameObject.AddComponent<SpringJoint>();
+        springJoint.autoConfigureConnectedAnchor = false;
+        springJoint.connectedAnchor = hookPoint;
+
+        float distanceFromPoint = Vector3.Distance(playerMove.transform.position, hookPoint);
+        springJoint.maxDistance = distanceFromPoint * maxDistanceModifier;
+        springJoint.minDistance = distanceFromPoint * minDistanceModifier;
+
+        springJoint.spring = 4.5f;
+        springJoint.damper = 7f;
+        springJoint.massScale = 4.5f;
+    }
+
+    private void StopSwing()
+    {
+        if (springJoint != null)
+        {
+            Destroy(springJoint);
+        }
     }
 }
