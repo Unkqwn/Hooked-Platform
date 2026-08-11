@@ -171,26 +171,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3323372444748929705, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: jumpForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4339857793926420294, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: maxDistanceModifier
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4339857793926420294, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: minDistanceModifier
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4670327466058103317, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4670327466058103317, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_AngularDamping
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
