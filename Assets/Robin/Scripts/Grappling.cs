@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +6,7 @@ public class Grappling : MonoBehaviour
     #region Variables
     [Header("References")]
     [SerializeField] private PlayerMove playerMove;
+    [SerializeField] private PlayerJump playerJump;
     [SerializeField] private Transform cameraTransform;
 
     [Header("Hook Settings")]
@@ -17,8 +17,8 @@ public class Grappling : MonoBehaviour
 
     [Header("Cable Settings")]
     [SerializeField] private float cableMaxLength;
-    [SerializeField] private float maxDistanceModifier = 0.8f;
-    [SerializeField] private float minDistanceModifier = 0.25f;
+    [SerializeField] private float maxDistanceModifier = 1f;
+    [SerializeField] private float minDistanceModifier = 0.1f;
     private SpringJoint springJoint;
 
 
@@ -40,6 +40,10 @@ public class Grappling : MonoBehaviour
         if (!playerMove)
         {
             playerMove = GetComponent<PlayerMove>();
+        }
+        if (!playerJump)
+        {
+            playerJump = GetComponent<PlayerJump>();
         }
         if (!cameraTransform)
         {
@@ -107,11 +111,12 @@ public class Grappling : MonoBehaviour
             hookPoint = hookOrigin.position + cameraTransform.forward * cableMaxLength;
             Invoke(nameof(StopHook), hookDelay);
         }
-        
-        playerMove.enabled = false;
 
         ropeRenderer.enabled = true;
         ropeRenderer.SetPosition(1, hookPoint);
+
+        playerMove.enabled = false;
+        playerJump.enabled = false;
     }
 
     private void StopHook()
@@ -120,6 +125,7 @@ public class Grappling : MonoBehaviour
         ropeRenderer.enabled = false;
         cooldownTimer = cooldownTime;
         playerMove.enabled = true;
+        playerJump.enabled = true;
         StopSwing();
     }
 
