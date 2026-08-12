@@ -4,21 +4,27 @@ using UnityEngine.AI;
 public enum EnemyState
 {
     Patrolling,
-    Chasing
+    Chasing,
+    Attacking
 }
 
-public class EnemyMove : MonoBehaviour
+public abstract class EnemyMove : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
 
-    [SerializeField] private Transform[] patrolPoints;
-    [SerializeField] private float chaseDistance = 5f;
+    [SerializeField] protected GameObject patrolRoute;
 
-    private EnemyState currentState;
+    [SerializeField] protected float chaseDistance = 5f;
+    [SerializeField] protected float attackDistance = 1.5f;
 
-    private Transform playerTransform;
+    [SerializeField] protected float baseSpeed = 3.5f;
 
-    private Transform currentPatrolPoint;
+    protected EnemyState currentState;
+
+    protected Transform playerTransform;
+
+    protected Transform[] patrolPoints;
+    protected Transform currentPatrolPoint;
 
     private void Start()
     {
@@ -27,8 +33,19 @@ public class EnemyMove : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         }
 
+        agent.speed = baseSpeed;
+
         currentState = EnemyState.Patrolling;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        if (patrolRoute != null)
+        {
+            patrolPoints = new Transform[patrolRoute.transform.childCount];
+            for (int i = 0; i < patrolRoute.transform.childCount; i++)
+            {
+                patrolPoints[i] = patrolRoute.transform.GetChild(i);
+            }
+        }
     }
 
     private void Update()
@@ -41,10 +58,13 @@ public class EnemyMove : MonoBehaviour
             case EnemyState.Chasing:
                 Chase();
                 break;
+            case EnemyState.Attacking:
+                Attack();
+                break;
         }
     }
 
-    private void Patrol()
+    protected virtual void Patrol()
     {
         if (currentPatrolPoint == null)
         {
@@ -61,17 +81,11 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    private void Chase()
-    {
-        // Implement chasing behavior here
-    }
+    protected abstract void Chase();
 
-    private void Attack()
-    {
-        // Implement attack behavior here
-    }
+    protected abstract void Attack();
 
-    private Transform FindClosestPatrolPoint()
+    protected Transform FindClosestPatrolPoint()
     {
         float closestDistance = Mathf.Infinity;
         Transform closestPoint = null;
