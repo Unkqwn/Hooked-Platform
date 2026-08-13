@@ -6,6 +6,14 @@ public class MechOneMove : EnemyMove
     {
         // Implement chasing behavior specific to MechOne here
         Debug.Log("MechOne is chasing the player!");
-        agent.SetDestination(playerTransform.position);
+        if (Vector3.Distance(transform.position, playerTransform.position) <= attackDistance)
+        {
+            // Implement attack behavior here
+            Debug.Log("MechOne is attacking the player!");
+        }
+        else
+        {
+            SearchLastKnownPosition();
+        }
     }
 }

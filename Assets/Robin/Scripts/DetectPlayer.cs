@@ -43,6 +43,7 @@ public class DetectPlayer : MonoBehaviour
 
         if (playerDetected)
         {
+            enemyMove.SetLastKnownPlayerPosition(enemyMove.playerTransform.position);
             enemyMove.SetState(EnemyState.Chasing);
         }
     }
@@ -56,7 +57,7 @@ public class DetectPlayer : MonoBehaviour
     {
         if (enemyMove == null) return false;
 
-        if (Vector3.Distance(transform.position, enemyMove.PlayerTransform.position) <= sensorRadius)
+        if (Vector3.Distance(transform.position, enemyMove.playerTransform.position) <= sensorRadius)
         {
             return true;
         }

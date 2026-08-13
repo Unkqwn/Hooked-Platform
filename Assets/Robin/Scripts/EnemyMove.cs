@@ -20,18 +20,20 @@ public abstract class EnemyMove : MonoBehaviour
     [SerializeField] protected float patrolWaitTime = 2f;
     [SerializeField] protected float chaseSpeed = 5f;
     [SerializeField] protected float attackDistance = 1.5f;
+    [SerializeField] protected float searchWaitTime = 3f;
 
     protected EnemyState currentState;
 
-    protected Transform playerTransform;
+    public Transform playerTransform { get; private set; }
+    protected Vector3 lastKnownPlayerPosition;
+
+    protected bool waitingAtLastKnownPosition = false;
 
     protected Transform[] patrolPoints;
     protected Transform currentPatrolPoint;
 
     protected bool waitingAtPoint = false;
     #endregion
-
-    public Transform PlayerTransform => playerTransform;
 
     private void Start()
     {
@@ -96,6 +98,24 @@ protected void GetNextPatrolPoint()
 
     protected abstract void Chase();
 
+    protected void SearchLastKnownPosition()
+    {
+        agent.SetDestination(lastKnownPlayerPosition);
+
+        if (!waitingAtLastKnownPosition && !agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+            waitingAtLastKnownPosition = true;
+            agent.isStopped = true;
+            Invoke(nameof(GiveUpSearch), searchWaitTime);
+        }
+    }
+
+    protected void GiveUpSearch()
+    {
+        waitingAtLastKnownPosition = false;
+        SetState(EnemyState.Patrolling);
+    }
+
     protected Transform FindClosestPatrolPoint()
     {
         float closestDistance = Mathf.Infinity;
@@ -115,6 +135,34 @@ protected void GetNextPatrolPoint()
 
     public void SetState(EnemyState newState)
     {
+        if (currentState == newState) return;
+
         currentState = newState;
+        agent.isStopped = false;
+
+        switch (newState)
+        {
+            case EnemyState.Patrolling:
+                agent.speed = baseSpeed;
+                break;
+
+            case EnemyState.Chasing:
+                CancelInvoke(nameof(GetNextPatrolPoint));
+                waitingAtPoint = false;
+                agent.speed = chaseSpeed;
+                break;
+        }
+    }
+
+    public void SetLastKnownPlayerPosition(Vector3 position)
+    {
+        lastKnownPlayerPosition = position;
+
+        if (waitingAtLastKnownPosition)
+        {
+            waitingAtLastKnownPosition = false;
+            CancelInvoke(nameof(GiveUpSearch));
+            agent.isStopped = false;
+        }
     }
 }
