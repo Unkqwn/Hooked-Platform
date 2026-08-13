@@ -212,7 +212,10 @@ MonoBehaviour:
   agent: {fileID: 6462117095612654054}
   patrolRoute: {fileID: 0}
   baseSpeed: 3.5
+  patrolWaitTime: 2
+  chaseSpeed: 5
   attackDistance: 1.5
+  searchWaitTime: 3
 --- !u!114 &3863497928056213372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +229,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectPlayer
   detectType: -1
-  visionDistance: 10
-  visionAngle: 45
-  hearingRadius: 5
+  visionDistance: 15
+  visionAngle: 90
+  sensorRadius: 5
+  hearingDistance: 10
 --- !u!1 &8865091386245470386
 GameObject:
   m_ObjectHideFlags: 0

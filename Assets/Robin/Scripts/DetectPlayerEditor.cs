@@ -13,6 +13,9 @@ public class DetectPlayerEditor : Editor
     // Sensor settings
     SerializedProperty sensorRadius;
 
+    // Hearing settings
+    SerializedProperty hearingDistance;
+
     private void OnEnable()
     {
         detectType = serializedObject.FindProperty("detectType");
@@ -21,6 +24,8 @@ public class DetectPlayerEditor : Editor
         visionAngle = serializedObject.FindProperty("visionAngle");
 
         sensorRadius = serializedObject.FindProperty("sensorRadius");
+
+        hearingDistance = serializedObject.FindProperty("hearingDistance");
     }
 
     public override void OnInspectorGUI()
@@ -38,6 +43,11 @@ public class DetectPlayerEditor : Editor
         if (((DetectType)detectType.intValue & DetectType.Sensor) != 0)
         {
             EditorGUILayout.PropertyField(sensorRadius);
+        }
+
+        if (((DetectType)detectType.intValue & DetectType.Hearing) != 0)
+        {
+            EditorGUILayout.PropertyField(hearingDistance);
         }
 
         serializedObject.ApplyModifiedProperties();

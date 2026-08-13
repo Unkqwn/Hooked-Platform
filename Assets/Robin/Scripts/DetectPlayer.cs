@@ -5,7 +5,8 @@ using System;
 public enum DetectType
 {
     Vision = 1 << 0,
-    Sensor = 1 << 1
+    Sensor = 1 << 1,
+    Hearing = 1 << 2
 }
 
 public class DetectPlayer : MonoBehaviour
@@ -19,6 +20,9 @@ public class DetectPlayer : MonoBehaviour
 
     [Header("Sensor Settings")]
     [SerializeField] private float sensorRadius = 5f;
+
+    [Header("Hearing Settings")]
+    [SerializeField] private float hearingDistance = 15f;
 
     private EnemyMove enemyMove;
 
@@ -39,6 +43,11 @@ public class DetectPlayer : MonoBehaviour
         if (((detectType & DetectType.Sensor) != 0))
         {
             playerDetected |= DetectPlayerBySensor();
+        }
+
+        if (((detectType & DetectType.Hearing) != 0))
+        {
+            playerDetected |= DetectPlayerByHearing();
         }
 
         if (playerDetected)
@@ -64,12 +73,23 @@ public class DetectPlayer : MonoBehaviour
         return false;
     }
 
+    private bool DetectPlayerByHearing()
+    {
+        return false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         if ((detectType & DetectType.Sensor) != 0)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, sensorRadius);
+        }
+
+        if ((detectType & DetectType.Hearing) != 0)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, hearingDistance);
         }
 
         if ((detectType & DetectType.Vision) != 0)
