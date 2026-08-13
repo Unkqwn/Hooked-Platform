@@ -13,7 +13,11 @@ public class MechOneMove : EnemyMove
         }
         else
         {
-            SearchLastKnownPosition();
+            agent.SetDestination(lastKnownPlayerPosition);
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            {
+                SetState(EnemyState.Patrolling);
+            }
         }
     }
 }

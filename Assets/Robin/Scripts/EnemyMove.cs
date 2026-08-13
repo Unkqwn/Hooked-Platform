@@ -98,24 +98,6 @@ protected void GetNextPatrolPoint()
 
     protected abstract void Chase();
 
-    protected void SearchLastKnownPosition()
-    {
-        agent.SetDestination(lastKnownPlayerPosition);
-
-        if (!waitingAtLastKnownPosition && !agent.pathPending && agent.remainingDistance < 0.5f)
-        {
-            waitingAtLastKnownPosition = true;
-            agent.isStopped = true;
-            Invoke(nameof(GiveUpSearch), searchWaitTime);
-        }
-    }
-
-    protected void GiveUpSearch()
-    {
-        waitingAtLastKnownPosition = false;
-        SetState(EnemyState.Patrolling);
-    }
-
     protected Transform FindClosestPatrolPoint()
     {
         float closestDistance = Mathf.Infinity;
@@ -157,12 +139,5 @@ protected void GetNextPatrolPoint()
     public void SetLastKnownPlayerPosition(Vector3 position)
     {
         lastKnownPlayerPosition = position;
-
-        if (waitingAtLastKnownPosition)
-        {
-            waitingAtLastKnownPosition = false;
-            CancelInvoke(nameof(GiveUpSearch));
-            agent.isStopped = false;
-        }
     }
 }

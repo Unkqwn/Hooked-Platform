@@ -593,8 +593,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3863497928056213372, guid: deb3f24a4af8ac54da62905490badf56, type: 3}
-      propertyPath: visionDistance
-      value: 15
+      propertyPath: detectType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4747830108520153137, guid: deb3f24a4af8ac54da62905490badf56, type: 3}
       propertyPath: patrolRoute
