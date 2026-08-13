@@ -17,6 +17,8 @@ public abstract class EnemyMove : MonoBehaviour
     [SerializeField] protected float baseSpeed = 3.5f;
 
     [Header("Behavior Settings")]
+    [SerializeField] protected float patrolWaitTime = 2f;
+    [SerializeField] protected float chaseSpeed = 5f;
     [SerializeField] protected float attackDistance = 1.5f;
 
     protected EnemyState currentState;
@@ -25,6 +27,8 @@ public abstract class EnemyMove : MonoBehaviour
 
     protected Transform[] patrolPoints;
     protected Transform currentPatrolPoint;
+
+    protected bool waitingAtPoint = false;
     #endregion
 
     public Transform PlayerTransform => playerTransform;
@@ -65,21 +69,30 @@ public abstract class EnemyMove : MonoBehaviour
     }
 
     protected virtual void Patrol()
+{
+    if (currentPatrolPoint == null)
     {
-        if (currentPatrolPoint == null)
-        {
-            currentPatrolPoint = FindClosestPatrolPoint();
-        }
-
-        agent.SetDestination(currentPatrolPoint.position);
-
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
-        {
-            int currentIndex = System.Array.IndexOf(patrolPoints, currentPatrolPoint);
-            int nextIndex = (currentIndex + 1) % patrolPoints.Length;
-            currentPatrolPoint = patrolPoints[nextIndex];
-        }
+        currentPatrolPoint = FindClosestPatrolPoint();
     }
+
+    agent.SetDestination(currentPatrolPoint.position);
+
+    if (!waitingAtPoint && !agent.pathPending && agent.remainingDistance < 0.5f)
+    {
+        waitingAtPoint = true;
+        agent.isStopped = true;
+        Invoke(nameof(GetNextPatrolPoint), patrolWaitTime);
+    }
+}
+
+protected void GetNextPatrolPoint()
+{
+    int currentIndex = System.Array.IndexOf(patrolPoints, currentPatrolPoint);
+    int nextIndex = (currentIndex + 1) % patrolPoints.Length;
+    currentPatrolPoint = patrolPoints[nextIndex];
+    agent.isStopped = false;
+    waitingAtPoint = false;
+}
 
     protected abstract void Chase();
 
