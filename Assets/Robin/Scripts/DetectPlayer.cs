@@ -15,7 +15,7 @@ public class DetectPlayer : MonoBehaviour
 
     [Header("Vision Settings")]
     [SerializeField] private float visionDistance = 10f;
-    [SerializeField] private float visionAngle = 45f;
+    [SerializeField, Range(45, 180)] private float visionAngle = 45f;
 
     [Header("Sensor Settings")]
     [SerializeField] private float sensorRadius = 5f;
@@ -61,5 +61,43 @@ public class DetectPlayer : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if ((detectType & DetectType.Sensor) != 0)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, sensorRadius);
+        }
+
+        if ((detectType & DetectType.Vision) != 0)
+        {
+            DrawVisionCone();
+        }
+    }
+
+    private void DrawVisionCone()
+    {
+        Gizmos.color = Color.cyan;
+
+        Vector3 forward = transform.forward * visionDistance;
+        Vector3 leftBoundary = Quaternion.AngleAxis(-visionAngle / 2f, transform.up) * forward;
+        Vector3 rightBoundary = Quaternion.AngleAxis(visionAngle / 2f, transform.up) * forward;
+
+        // The two edge lines of the cone
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
+
+        // Arc connecting the edges, approximated with line segments
+        Vector3 previousPoint = transform.position + leftBoundary;
+        int segments = 20;
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = -visionAngle / 2f + (visionAngle * i / segments);
+            Vector3 nextPoint = transform.position + Quaternion.AngleAxis(angle, transform.up) * forward;
+            Gizmos.DrawLine(previousPoint, nextPoint);
+            previousPoint = nextPoint;
+        }
     }
 }
