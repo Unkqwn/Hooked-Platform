@@ -4,20 +4,20 @@ using UnityEngine.AI;
 public enum EnemyState
 {
     Patrolling,
-    Chasing,
-    Attacking
+    Chasing
 }
 
 public abstract class EnemyMove : MonoBehaviour
 {
+    #region Variables
+    [Header("NavMesh Settings")]
     [SerializeField] protected NavMeshAgent agent;
-
     [SerializeField] protected GameObject patrolRoute;
 
-    [SerializeField] protected float chaseDistance = 5f;
-    [SerializeField] protected float attackDistance = 1.5f;
-
     [SerializeField] protected float baseSpeed = 3.5f;
+
+    [Header("Behavior Settings")]
+    [SerializeField] protected float attackDistance = 1.5f;
 
     protected EnemyState currentState;
 
@@ -25,6 +25,9 @@ public abstract class EnemyMove : MonoBehaviour
 
     protected Transform[] patrolPoints;
     protected Transform currentPatrolPoint;
+    #endregion
+
+    public Transform PlayerTransform => playerTransform;
 
     private void Start()
     {
@@ -58,9 +61,6 @@ public abstract class EnemyMove : MonoBehaviour
             case EnemyState.Chasing:
                 Chase();
                 break;
-            case EnemyState.Attacking:
-                Attack();
-                break;
         }
     }
 
@@ -83,8 +83,6 @@ public abstract class EnemyMove : MonoBehaviour
 
     protected abstract void Chase();
 
-    protected abstract void Attack();
-
     protected Transform FindClosestPatrolPoint()
     {
         float closestDistance = Mathf.Infinity;
@@ -100,5 +98,10 @@ public abstract class EnemyMove : MonoBehaviour
             }
         }
         return closestPoint;
+    }
+
+    public void SetState(EnemyState newState)
+    {
+        currentState = newState;
     }
 }
