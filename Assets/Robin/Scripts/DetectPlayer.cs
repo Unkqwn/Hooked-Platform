@@ -5,7 +5,7 @@ using System;
 public enum DetectType
 {
     Vision = 1 << 0,
-    Sound = 1 << 1
+    Sensor = 1 << 1
 }
 
 public class DetectPlayer : MonoBehaviour
@@ -17,8 +17,8 @@ public class DetectPlayer : MonoBehaviour
     [SerializeField] private float visionDistance = 10f;
     [SerializeField] private float visionAngle = 45f;
 
-    [Header("Hearing Settings")]
-    [SerializeField] private float hearingRadius = 5f;
+    [Header("Sensor Settings")]
+    [SerializeField] private float sensorRadius = 5f;
 
     private EnemyMove enemyMove;
 
@@ -36,9 +36,9 @@ public class DetectPlayer : MonoBehaviour
             playerDetected |= DetectPlayerByVision();
         }
 
-        if (((detectType & DetectType.Sound) != 0))
+        if (((detectType & DetectType.Sensor) != 0))
         {
-            playerDetected |= DetectPlayerBySound();
+            playerDetected |= DetectPlayerBySensor();
         }
 
         if (playerDetected)
@@ -52,11 +52,11 @@ public class DetectPlayer : MonoBehaviour
         return false;
     }
 
-    private bool DetectPlayerBySound()
+    private bool DetectPlayerBySensor()
     {
         if (enemyMove == null) return false;
 
-        if (Vector3.Distance(transform.position, enemyMove.PlayerTransform.position) <= hearingRadius)
+        if (Vector3.Distance(transform.position, enemyMove.PlayerTransform.position) <= sensorRadius)
         {
             return true;
         }

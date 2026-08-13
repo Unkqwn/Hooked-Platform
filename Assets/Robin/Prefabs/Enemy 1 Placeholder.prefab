@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6462117095612654054}
   - component: {fileID: 4297163936931443383}
   - component: {fileID: 4747830108520153137}
+  - component: {fileID: 3863497928056213372}
   m_Layer: 0
   m_Name: Enemy 1 Placeholder
   m_TagString: Untagged
@@ -210,9 +211,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechOneMove
   agent: {fileID: 6462117095612654054}
   patrolRoute: {fileID: 0}
-  chaseDistance: 5
-  attackDistance: 1.5
   baseSpeed: 3.5
+  attackDistance: 1.5
+--- !u!114 &3863497928056213372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8753873964674094736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570981957ffadca4897c8f391281c85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectPlayer
+  detectType: -1
+  visionDistance: 10
+  visionAngle: 45
+  hearingRadius: 5
 --- !u!1 &8865091386245470386
 GameObject:
   m_ObjectHideFlags: 0
