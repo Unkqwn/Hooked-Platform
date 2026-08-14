@@ -229,8 +229,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectPlayer
   detectType: -1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 247
   visionDistance: 15
-  visionAngle: 90
+  visionAngle: 45
   sensorRadius: 5
   hearingDistance: 10
 --- !u!1 &8865091386245470386

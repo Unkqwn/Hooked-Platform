@@ -15,6 +15,7 @@ public class DetectPlayer : MonoBehaviour
     [SerializeField] private DetectType detectType;
 
     [Header("Vision Settings")]
+    [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private float visionDistance = 10f;
     [SerializeField, Range(45, 180)] private float visionAngle = 45f;
 
@@ -25,6 +26,7 @@ public class DetectPlayer : MonoBehaviour
     [SerializeField] private float hearingDistance = 15f;
 
     private EnemyMove enemyMove;
+    private float distanceToPlayer;
 
     private void Start()
     {
@@ -34,6 +36,8 @@ public class DetectPlayer : MonoBehaviour
     private void Update()
     {
         bool playerDetected = false;
+
+        distanceToPlayer = Vector3.Distance(transform.position, enemyMove.playerTransform.position);
 
         if (((detectType & DetectType.Vision) != 0))
         {
@@ -59,18 +63,40 @@ public class DetectPlayer : MonoBehaviour
 
     private bool DetectPlayerByVision()
     {
-        return false;
+        if (distanceToPlayer > visionDistance)
+        {
+            return false;
+        }
+
+        Vector3 toPlayer = enemyMove.playerTransform.position - transform.position;
+        float angle = Vector3.Angle(transform.forward, toPlayer);
+
+        if (angle > visionAngle / 2f)
+        {
+            return false;
+        }
+
+        if (Physics.Raycast(transform.position, toPlayer.normalized, out RaycastHit hit, distanceToPlayer, obstacleLayer))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private bool DetectPlayerBySensor()
     {
-        if (enemyMove == null) return false;
-
-        if (Vector3.Distance(transform.position, enemyMove.playerTransform.position) <= sensorRadius)
+        if (distanceToPlayer > sensorRadius)
         {
-            return true;
+            return false;
         }
-        return false;
+
+        if (Physics.Raycast(transform.position, (enemyMove.playerTransform.position - transform.position).normalized, out RaycastHit hit, distanceToPlayer, obstacleLayer))
+        {
+            return false;
+        }
+        
+        return true;
     }
 
     private bool DetectPlayerByHearing()

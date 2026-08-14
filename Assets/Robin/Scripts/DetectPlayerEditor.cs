@@ -6,6 +6,9 @@ public class DetectPlayerEditor : Editor
     // Type of detection
     SerializedProperty detectType;
 
+    // Obstacle layer
+    SerializedProperty obstacleLayer;
+
     // Vision settings
     SerializedProperty visionDistance;
     SerializedProperty visionAngle;
@@ -19,6 +22,8 @@ public class DetectPlayerEditor : Editor
     private void OnEnable()
     {
         detectType = serializedObject.FindProperty("detectType");
+
+        obstacleLayer = serializedObject.FindProperty("obstacleLayer");
 
         visionDistance = serializedObject.FindProperty("visionDistance");
         visionAngle = serializedObject.FindProperty("visionAngle");
@@ -36,6 +41,8 @@ public class DetectPlayerEditor : Editor
 
         if (((DetectType)detectType.intValue & DetectType.Vision) != 0)
         {
+            EditorGUILayout.PropertyField(obstacleLayer);
+
             EditorGUILayout.PropertyField(visionDistance);
             EditorGUILayout.PropertyField(visionAngle);
         }
