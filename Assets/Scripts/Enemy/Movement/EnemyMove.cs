@@ -17,11 +17,14 @@ public abstract class EnemyMove : MonoBehaviour
     [SerializeField] protected float baseSpeed = 3.5f;
 
     [Header("Behavior Settings")]
-    [SerializeField] protected EnemyAttack enemyAttack;
     [SerializeField] protected float patrolWaitTime = 2f;
     [SerializeField] protected float chaseSpeed = 5f;
-    [SerializeField] protected float attackDistance = 1.5f;
     [SerializeField] protected float searchWaitTime = 3f;
+
+    [Header("Attack Behavior Settings")]
+    [SerializeField] protected EnemyAttack enemyAttack;
+    [SerializeField, Range(2f, 200f)] protected float minAttackDistance, maxAttackDistance;
+    [SerializeField] protected float attackWalkSpeed = 2f;
 
     protected EnemyState currentState;
 

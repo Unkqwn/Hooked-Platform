@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5255201562948543773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0.2, z: 0.7}
+  m_LocalRotation: {x: 0, y: 0.08715578, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: -0.5500001, y: 0.20000005, z: 0.6999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7609211280575782283}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
 --- !u!1 &8753873964674094736
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,11 +214,13 @@ MonoBehaviour:
   agent: {fileID: 6462117095612654054}
   patrolRoute: {fileID: 0}
   baseSpeed: 3.5
-  enemyAttack: {fileID: 0}
   patrolWaitTime: 2
   chaseSpeed: 5
-  attackDistance: 2.5
   searchWaitTime: 3
+  enemyAttack: {fileID: 9000527722155386409}
+  minAttackDistance: 5
+  maxAttackDistance: 15
+  attackWalkSpeed: 2
 --- !u!114 &3863497928056213372
 MonoBehaviour:
   m_ObjectHideFlags: 0
