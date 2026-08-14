@@ -753,6 +753,10 @@ PrefabInstance:
       propertyPath: patrolRoute
       value: 
       objectReference: {fileID: 1743867147}
+    - target: {fileID: 4747830108520153137, guid: deb3f24a4af8ac54da62905490badf56, type: 3}
+      propertyPath: attackDistance
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7609211280575782283, guid: deb3f24a4af8ac54da62905490badf56, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.885319

@@ -6,14 +6,6 @@ public class PlayerHP : MonoBehaviour, IDamageable
 
     public float Health => health;
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            TakeDamage(10f);
-        }
-    }
-
     public void TakeDamage(float damage)
     {
         health -= damage;

@@ -72,6 +72,8 @@ public abstract class EnemyMove : MonoBehaviour
 
     protected virtual void Patrol()
 {
+    agent.speed = baseSpeed;
+    
     if (currentPatrolPoint == null)
     {
         currentPatrolPoint = FindClosestPatrolPoint();

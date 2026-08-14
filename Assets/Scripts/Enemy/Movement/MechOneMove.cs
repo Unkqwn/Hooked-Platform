@@ -4,15 +4,17 @@ public class MechOneMove : EnemyMove
 {
     protected override void Chase()
     {
-        // Implement chasing behavior specific to MechOne here
-        Debug.Log("MechOne is chasing the player!");
         if (Vector3.Distance(transform.position, playerTransform.position) <= attackDistance)
         {
-            // Implement attack behavior here
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
             Debug.Log("MechOne is attacking the player!");
         }
         else
         {
+            agent.speed = chaseSpeed;
+            
+            agent.isStopped = false;
             agent.SetDestination(lastKnownPlayerPosition);
             if (!agent.pathPending && agent.remainingDistance < 0.5f)
             {
