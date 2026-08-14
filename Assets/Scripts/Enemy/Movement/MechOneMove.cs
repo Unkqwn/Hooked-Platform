@@ -9,6 +9,10 @@ public class MechOneMove : EnemyMove
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
             Debug.Log("MechOne is attacking the player!");
+            if (enemyAttack != null)
+            {
+                enemyAttack.Attack(playerTransform);
+            }
         }
         else
         {

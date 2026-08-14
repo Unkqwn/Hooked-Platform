@@ -17,6 +17,7 @@ public abstract class EnemyMove : MonoBehaviour
     [SerializeField] protected float baseSpeed = 3.5f;
 
     [Header("Behavior Settings")]
+    [SerializeField] protected EnemyAttack enemyAttack;
     [SerializeField] protected float patrolWaitTime = 2f;
     [SerializeField] protected float chaseSpeed = 5f;
     [SerializeField] protected float attackDistance = 1.5f;
