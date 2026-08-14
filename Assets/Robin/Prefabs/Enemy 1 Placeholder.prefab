@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570981957ffadca4897c8f391281c85b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectPlayer
-  detectType: -1
+  detectType: 3
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 247
