@@ -4,13 +4,14 @@ public class MechOneMove : EnemyMove
 {
     protected override void Chase()
     {
+        Vector3 aimDirection = (playerTransform.position - enemyAttack.transform.position).normalized;
         if (Vector3.Distance(transform.position, playerTransform.position) <= minAttackDistance)
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
             if (enemyAttack != null)
             {
-                enemyAttack.Attack(playerTransform);
+                enemyAttack.Attack(aimDirection);
             }
         }
         else
@@ -21,10 +22,10 @@ public class MechOneMove : EnemyMove
             if (Vector3.Distance(transform.position, playerTransform.position) <= maxAttackDistance)
             {
                 agent.speed = attackWalkSpeed;
-                enemyAttack.Attack(playerTransform);
+                enemyAttack.Attack(aimDirection);
             }
             else
-            {
+           {
                 agent.speed = chaseSpeed;
             }
 

@@ -13,6 +13,8 @@ public abstract class AttackBase : MonoBehaviour
 
     protected bool canAttack = true;
 
+    public Transform AttackOrigin => attackOrigin;
+
     protected virtual void Start()
     {
         attackDamage = weaponData.Damage;
@@ -64,14 +66,14 @@ public abstract class AttackBase : MonoBehaviour
         return null;
     }
 
-    public virtual void Attack(Transform target)
+    public virtual void Attack(Vector3 aimDirection)
     {
         if (!canAttack || attackOrigin == null)
         {
             return;
         }
 
-        attackOrigin.LookAt(target);
+        attackOrigin.rotation = Quaternion.LookRotation(aimDirection);
         
         lastAttackTime = 1 / attackFireRate;
 
