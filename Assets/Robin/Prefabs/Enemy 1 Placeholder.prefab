@@ -237,7 +237,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 247
-  visionDistance: 25
+  visionDistance: 15
   visionAngle: 45
   sensorRadius: 5
   hearingDistance: 10
@@ -268,4 +268,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechOneAttack
   weaponData: {fileID: 11400000, guid: 5cc699c925c966d4ba5829a5cf6a628c, type: 2}
   weaponSpawnPoint: {fileID: 5770482160306105142}
-  lineRenderer: {fileID: 8860288748698939114, guid: cd24b96aee6284042ad60140e751080a, type: 3}

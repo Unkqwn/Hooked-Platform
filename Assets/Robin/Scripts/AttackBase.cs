@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public abstract class EnemyAttack : MonoBehaviour
+public abstract class AttackBase : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected Transform weaponSpawnPoint;
-    [SerializeField] protected LineRenderer lineRenderer;
     protected Transform attackOrigin;
     protected float attackDamage = 10f;
     protected float attackFireRate = 1f;
@@ -33,7 +32,6 @@ public abstract class EnemyAttack : MonoBehaviour
 
             if (attackOrigin == null)
             {
-                Debug.LogWarning($"No 'Tip' found on weapon prefab '{weaponPrefab.name}' for {gameObject.name}.");
                 attackOrigin = weaponInstance.transform; // Fallback to the weapon's root if "Tip" is not found
             }
         }
@@ -66,7 +64,35 @@ public abstract class EnemyAttack : MonoBehaviour
         return null;
     }
 
-    public abstract void Attack(Transform target);
+    public virtual void Attack(Transform target)
+    {
+        if (!canAttack || attackOrigin == null)
+        {
+            return;
+        }
+
+        attackOrigin.LookAt(target);
+        
+        lastAttackTime = 1 / attackFireRate;
+
+        for (int i = 0; i < weaponData.ProjectilesPerShot; i++)
+        {
+            Vector3 fireDirection = GetRandomSpreadDirection(attackOrigin.forward, weaponData.SpreadAngle);
+
+            Vector3 endPoint = attackOrigin.position + fireDirection * 100f;
+
+            RaycastHit hitInfo;
+            if (Physics.Raycast(attackOrigin.position, fireDirection, out hitInfo))
+            {
+                endPoint = hitInfo.point;
+                IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(attackDamage);
+                }
+            }
+        }
+    }
 
     protected Vector3 GetRandomSpreadDirection(Vector3 forward, float spreadAngle)
     {

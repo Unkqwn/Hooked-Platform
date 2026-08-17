@@ -16,4 +16,5 @@ MonoBehaviour:
   damage: 10
   fireRate: 1
   spreadAngle: 5
+  projectilesPerShot: 1
   projectilePrefab: {fileID: 8077041021912141780, guid: 57a0db757ffc10248abfdcfb3f2562e1, type: 3}

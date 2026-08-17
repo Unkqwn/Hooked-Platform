@@ -22,7 +22,7 @@ public abstract class EnemyMove : MonoBehaviour
     [SerializeField] protected float searchWaitTime = 3f;
 
     [Header("Attack Behavior Settings")]
-    [SerializeField] protected EnemyAttack enemyAttack;
+    [SerializeField] protected AttackBase enemyAttack;
     [SerializeField, Range(2f, 200f)] protected float minAttackDistance, maxAttackDistance;
     [SerializeField] protected float attackWalkSpeed = 2f;
 
