@@ -4,7 +4,7 @@ public class MechOneMove : EnemyMove
 {
     protected override void Chase()
     {
-        Vector3 aimDirection = (playerTransform.position - enemyAttack.transform.position).normalized;
+       Vector3 aimDirection = (playerTransform.position - enemyAttack.AttackOrigin.position).normalized;
         if (Vector3.Distance(transform.position, playerTransform.position) <= minAttackDistance)
         {
             agent.isStopped = true;

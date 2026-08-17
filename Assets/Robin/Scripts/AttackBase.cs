@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class AttackBase : MonoBehaviour
 {
     #region Variables
+    #region Weapon Configuration
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected Transform weaponSpawnPoint;
     protected Transform attackOrigin;
@@ -13,10 +15,12 @@ public abstract class AttackBase : MonoBehaviour
     protected float lastAttackTime;
 
     protected bool canAttack = true;
+    #endregion
 
     #region Visualization
     [Header("Tracer Visualization")]
     [SerializeField] private TrailRenderer tracerPrefab;
+    [SerializeField] private float tracerSpeed = 300f;
     #endregion
 
     #region Properties
@@ -79,6 +83,7 @@ public abstract class AttackBase : MonoBehaviour
     {
         if (!canAttack || attackOrigin == null)
         {
+            Debug.LogWarning($"Cannot attack: canAttack={canAttack}, attackOrigin={(attackOrigin == null ? "null" : "not null")}");
             return;
         }
 
@@ -95,13 +100,25 @@ public abstract class AttackBase : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(attackOrigin.position, fireDirection, out hitInfo))
             {
+
                 endPoint = hitInfo.point;
                 IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(attackDamage);
                 }
+
+                Debug.Log($"Hit {hitInfo.collider.name} at {hitInfo.point}. Damage applied: {attackDamage}");
             }
+            else
+            {
+                Debug.Log($"No hit detected. Projectile traveled to {endPoint}");
+            }
+
+            
+            TrailRenderer tracer = Instantiate(tracerPrefab, attackOrigin.position, Quaternion.identity);
+
+            StartCoroutine(AnimateTracer(tracer, hitInfo));
         }
     }
 
@@ -113,5 +130,25 @@ public abstract class AttackBase : MonoBehaviour
 
         Quaternion spreadRotation = Quaternion.Euler(randomPitch, randomYaw, 0);
         return spreadRotation * forward;
+    }
+
+    private IEnumerator AnimateTracer(TrailRenderer tracer, RaycastHit hitInfo)
+    {
+        Vector3 startPosition = tracer.transform.position;
+        Vector3 endPosition = hitInfo.point;
+
+        float distance = Vector3.Distance(startPosition, endPosition);
+        float travelTime = distance / tracerSpeed;
+
+        float elapsed = 0f;
+        while (elapsed < travelTime)
+        {
+            tracer.transform.position = Vector3.Lerp(startPosition, endPosition, elapsed / travelTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        tracer.transform.position = endPosition;
+        Destroy(tracer.gameObject, tracer.time);
     }
 }

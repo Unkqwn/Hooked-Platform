@@ -7,6 +7,7 @@ public class PlayerAttack : AttackBase
     {
         if (context.performed)
         {
+            Debug.Log("Attack input received.");
             Attack(transform.forward);
         }
     }
