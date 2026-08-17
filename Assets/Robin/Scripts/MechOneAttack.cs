@@ -13,8 +13,10 @@ public class MechOneAttack : EnemyAttack
         
         lastAttackTime = 1 / attackFireRate;
 
+        Vector3 fireDirection = GetRandomSpreadDirection(attackOrigin.forward, weaponData.SpreadAngle);
+
         RaycastHit hitInfo;
-        if (Physics.Raycast(attackOrigin.position, attackOrigin.forward, out hitInfo))
+        if (Physics.Raycast(attackOrigin.position, fireDirection, out hitInfo))
         {
             IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
             if (damageable != null)

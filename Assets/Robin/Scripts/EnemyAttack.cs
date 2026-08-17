@@ -4,6 +4,7 @@ public abstract class EnemyAttack : MonoBehaviour
 {
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected Transform weaponSpawnPoint;
+    [SerializeField] protected LineRenderer lineRenderer;
     protected Transform attackOrigin;
     protected float attackDamage = 10f;
     protected float attackFireRate = 1f;
@@ -66,4 +67,14 @@ public abstract class EnemyAttack : MonoBehaviour
     }
 
     public abstract void Attack(Transform target);
+
+    protected Vector3 GetRandomSpreadDirection(Vector3 forward, float spreadAngle)
+    {
+        float halfSpread = spreadAngle / 2f;
+        float randomYaw = Random.Range(-halfSpread, halfSpread);
+        float randomPitch = Random.Range(-halfSpread, halfSpread);
+
+        Quaternion spreadRotation = Quaternion.Euler(randomPitch, randomYaw, 0);
+        return spreadRotation * forward;
+    }
 }

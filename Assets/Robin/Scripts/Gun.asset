@@ -15,4 +15,5 @@ MonoBehaviour:
   weaponName: Default Weapon
   damage: 10
   fireRate: 1
+  spreadAngle: 5
   projectilePrefab: {fileID: 8077041021912141780, guid: 57a0db757ffc10248abfdcfb3f2562e1, type: 3}
