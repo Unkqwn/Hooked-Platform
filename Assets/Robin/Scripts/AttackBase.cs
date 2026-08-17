@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class AttackBase : MonoBehaviour
 {
+    #region Variables
     [SerializeField] protected WeaponData weaponData;
     [SerializeField] protected Transform weaponSpawnPoint;
     protected Transform attackOrigin;
@@ -13,7 +14,15 @@ public abstract class AttackBase : MonoBehaviour
 
     protected bool canAttack = true;
 
+    #region Visualization
+    [Header("Tracer Visualization")]
+    [SerializeField] private TrailRenderer tracerPrefab;
+    #endregion
+
+    #region Properties
     public Transform AttackOrigin => attackOrigin;
+    #endregion
+    #endregion
 
     protected virtual void Start()
     {
@@ -30,7 +39,7 @@ public abstract class AttackBase : MonoBehaviour
                 Debug.LogWarning($"Failed to instantiate weapon prefab '{weaponPrefab.name}' for {gameObject.name}.");
                 return;
             }
-            attackOrigin = FindDeepChild(weaponInstance.transform, "Tip");
+            attackOrigin = FindDeepChild(weaponInstance.transform, "WeaponTip");
 
             if (attackOrigin == null)
             {
