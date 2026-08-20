@@ -268,3 +268,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechOneAttack
   weaponData: {fileID: 11400000, guid: 5cc699c925c966d4ba5829a5cf6a628c, type: 2}
   weaponSpawnPoint: {fileID: 5770482160306105142}
+  tracerPrefab: {fileID: 3217565069578554870, guid: cd24b96aee6284042ad60140e751080a, type: 3}
+  tracerSpeed: 300

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015b7e311065c4840a48e11404f5978e, type: 3}
   m_Name: Gun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: Default Weapon
+  weaponName: Gun
   damage: 10
   fireRate: 1
-  spreadAngle: 5
+  spreadAngle: 0.1
   projectilesPerShot: 1
   projectilePrefab: {fileID: 8077041021912141780, guid: 57a0db757ffc10248abfdcfb3f2562e1, type: 3}

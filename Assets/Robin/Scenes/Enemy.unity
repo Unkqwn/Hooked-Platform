@@ -512,10 +512,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1317677296454105911, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: tracerPrefab
-      value: 
-      objectReference: {fileID: 3217565069578554870, guid: cd24b96aee6284042ad60140e751080a, type: 3}
     - target: {fileID: 1423613562054502212, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
       propertyPath: m_Name
       value: Player Placeholder
@@ -559,38 +555,6 @@ PrefabInstance:
     - target: {fileID: 1918819752601808949, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296667665914555811, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296667665914555811, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296667665914555811, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerAttack, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6824409284452868020, guid: 9a8506d33ad0cc244897a8b71c5fdd77, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -824,10 +788,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 1 Placeholder
       objectReference: {fileID: 0}
-    - target: {fileID: 9000527722155386409, guid: deb3f24a4af8ac54da62905490badf56, type: 3}
-      propertyPath: tracerPrefab
-      value: 
-      objectReference: {fileID: 3217565069578554870, guid: cd24b96aee6284042ad60140e751080a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
