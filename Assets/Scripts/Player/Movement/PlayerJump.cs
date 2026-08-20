@@ -21,7 +21,7 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rb.linearVelocity.y <= 0f && !IsGrounded())
+        if (rb.linearVelocity.y <= -0.001f && !IsGrounded())
         {
             rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
