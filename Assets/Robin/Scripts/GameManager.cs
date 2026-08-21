@@ -12,23 +12,21 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance;
 
     public GameState CurrentGameState { get; private set; }
 
     [Header("Scene Names")]
-    [SerializeField] private string mainMenuSceneName;
-    [SerializeField] private string gameSceneName;
-    [SerializeField] private string victorySceneName;
-    [SerializeField] private string defeatSceneName;
+    public string mainMenuSceneName;
+    public string gameSceneName;
+    public string victorySceneName;
+    public string defeatSceneName;
 
     [Header("Menus")]
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject optionsMenu;
-    [SerializeField] private GameObject creditsMenu;
-    [SerializeField] private GameObject pauseMenu;
-
-    [SerializeField] private bool optionsMenuEnabled, creditsMenuEnabled = false;
+    public GameObject mainMenu;
+    public GameObject optionsMenu;
+    public GameObject creditsMenu;
+    public GameObject pauseMenu;
 
     private void Awake()
     {
@@ -42,38 +40,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (mainMenu == null || pauseMenu == null || optionsMenu == null || creditsMenu == null)
-        {
-            Debug.LogError("One or more menu GameObjects are not assigned in the GameManager.");
-        }
-
         CurrentGameState = GameState.MenuScreen;
-    }
-
-    public void MainMenu()
-    {
-        CurrentGameState = GameState.MenuScreen;
-        SceneManager.LoadScene(mainMenuSceneName);
-    }
-
-    public void StartGame()
-    {
-        CurrentGameState = GameState.Playing;
-        SceneManager.LoadScene(gameSceneName);
-    }
-
-    public void OpenOptionsMenu()
-    {
-        optionsMenuEnabled = true;
-        CurrentGameState = GameState.Paused;
-        MenuLoad();
-    }
-
-    public void OpenCreditsMenu()
-    {
-        creditsMenuEnabled = true;
-        CurrentGameState = GameState.Paused;
-        MenuLoad();
     }
 
     public void VictoryMenu()
@@ -94,13 +61,5 @@ public class GameManager : MonoBehaviour
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
-    }
-
-    private void MenuLoad()
-    {
-        optionsMenu.SetActive(optionsMenuEnabled);
-        creditsMenu.SetActive(creditsMenuEnabled);
-        
-        pauseMenu.SetActive(CurrentGameState == GameState.Paused);
     }
 }

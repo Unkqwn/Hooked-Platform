@@ -1,24 +1,39 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private void Start()
+    {
+        GameManager.Instance.mainMenu = gameObject;
+
+        GameManager.Instance.mainMenu.SetActive(true);
+        GameManager.Instance.optionsMenu.SetActive(false);
+        GameManager.Instance.creditsMenu.SetActive(false);
+    }
+
     public void OnStartButton()
     {
-        GameManager.Instance.StartGame();
+        SceneManager.LoadScene(GameManager.Instance.gameSceneName);
     }
 
     public void OnOptionsButton()
     {
-        GameManager.Instance.OpenOptionsMenu();
+        GameManager.Instance.optionsMenu.SetActive(true);
+        GameManager.Instance.mainMenu.SetActive(false);
     }
 
     public void OnCreditsButton()
     {
-        GameManager.Instance.OpenCreditsMenu();
+        GameManager.Instance.creditsMenu.SetActive(true);
+        GameManager.Instance.mainMenu.SetActive(false);
     }
 
     public void OnQuitButton()
     {
-        GameManager.Instance.QuitGame();
+        Application.Quit();
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
